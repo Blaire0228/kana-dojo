@@ -106,7 +106,7 @@ export default function AchievementSummaryBar({
           <Link
             href='?tab=achievements'
             className={cn(
-              'group/link flex cursor-pointer items-center gap-2 rounded-full px-5 py-2.5',
+              'group/link flex cursor-pointer items-center gap-2 rounded-full px-5 py-2.5 max-sm:px-3',
               'bg-(--background-color)',
               'border border-(--border-color)/30',
               'text-sm font-semibold text-(--secondary-color)',
@@ -114,8 +114,8 @@ export default function AchievementSummaryBar({
               'hover:text-(--main-color)',
             )}
           >
-            View All
-            <ChevronRight className='h-4 w-4 transition-colors duration-300' />
+            <span className='max-sm:hidden'>View All</span>
+            <ChevronRight className='h-4 w-4 transition-colors duration-300 max-sm:h-6 max-sm:w-6 sm:h-4 sm:w-4' />
           </Link>
         </div>
 
