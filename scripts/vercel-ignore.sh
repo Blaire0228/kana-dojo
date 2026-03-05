@@ -131,6 +131,7 @@ IGNORE_PATTERNS=(
   # Config files (non-build-affecting)
   "^next-sitemap\\.config\\.js$"
   "^components\\.json$"
+  "^package-lock\\.json$"
   
   # Data and community content (non-build affecting)
   "^features/Preferences/data/themes\\.ts$"
