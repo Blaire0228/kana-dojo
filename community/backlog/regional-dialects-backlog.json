@@ -236,7 +236,7 @@
     "region": "Kansai",
     "note": "Used for prohibition/failure. (Set 2)",
     "id": 24,
-    "issued": true,
+    "issued": false,
     "completed": false
   },
   {
@@ -796,7 +796,7 @@
     "region": "Kansai",
     "note": "Traditional gratitude expression. (Set 4)",
     "id": 80,
-    "issued": true,
+    "issued": false,
     "completed": false
   },
   {
