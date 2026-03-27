@@ -501,7 +501,7 @@
     "note": "場の一体感を重視。",
     "id": 56,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "situation": "公共スペース 3",
@@ -510,7 +510,7 @@
     "note": "ゴミ箱が少ない地域がある。",
     "id": 57,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "situation": "お辞儀 3",
@@ -519,7 +519,7 @@
     "note": "丁寧さは姿勢で伝わる。",
     "id": 58,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "situation": "エスカレーター 3",
@@ -527,7 +527,7 @@
     "dont": "両側を塞ぐ",
     "note": "地域差に注意。",
     "id": 59,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
