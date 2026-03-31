@@ -7,6 +7,8 @@ const random = new Random();
 interface WordBuildingModeOptions {
   /** Base probability of word building mode (default: 0.15 = 15%) */
   baseProbability?: number;
+  /** Absolute probability of normal direction when word building starts (0.0-1.0, default: 0.5) */
+  normalModeProbability?: number;
   /** Probability increase per consecutive correct answer (default: 0.1 = 10%) */
   incrementPerCorrect?: number;
   /** Maximum probability cap (default: 0.4 = 40%) */
@@ -55,14 +57,17 @@ interface WordBuildingModeState {
  * - Caps at 40% word building probability
  * - Requires minimum 3 consecutive correct answers before it can trigger
  * - After 2 correct answers in word building mode, may switch back to normal pick
- * - Direction (normal/reverse) is decided randomly with bias toward variety
+ * - Direction is decided from one explicit probability value:
+ *   normalModeProbability = chance of normal mode
+ *   reverse chance = 1 - normalModeProbability
  */
 export const useWordBuildingMode = (options: WordBuildingModeOptions = {}) => {
   const {
     baseProbability = 0.15,
+    normalModeProbability = 0.65,
     incrementPerCorrect = 0.1,
     maxProbability = 0.4,
-    minConsecutiveForTrigger = 3,
+    minConsecutiveForTrigger = 5,
     wordLength: initialWordLength = 3,
     enableAdaptiveWordLength = false,
     minWordLength = 1,
@@ -72,6 +77,10 @@ export const useWordBuildingMode = (options: WordBuildingModeOptions = {}) => {
 
   const clampedMinWordLength = Math.max(1, minWordLength);
   const clampedMaxWordLength = Math.max(clampedMinWordLength, maxWordLength);
+  const clampedNormalModeProbability = Math.max(
+    0,
+    Math.min(1, normalModeProbability),
+  );
 
   const getAdaptiveWordLength = useCallback(
     (
@@ -203,17 +212,8 @@ export const useWordBuildingMode = (options: WordBuildingModeOptions = {}) => {
             wordLength: newWordLength,
           };
         }
-        // Stay in word building mode, maybe switch direction
-        const shouldSwitchDirection =
-          newWordBuildingStreak > 0 &&
-          newWordBuildingStreak % 2 === 0 &&
-          random.real(0, 1) < 0.3;
-
         return {
           ...prev,
-          isWordBuildingReverse: shouldSwitchDirection
-            ? !prev.isWordBuildingReverse
-            : prev.isWordBuildingReverse,
           consecutiveCorrect: newConsecutive,
           wordBuildingStreak: newWordBuildingStreak,
           consecutiveWrong: newConsecutiveWrong,
@@ -231,11 +231,14 @@ export const useWordBuildingMode = (options: WordBuildingModeOptions = {}) => {
         );
 
         if (random.real(0, 1) < wordBuildingProbability) {
-          // Enter word building mode, decide direction randomly
+          // Enter word building mode using one explicit probability:
+          // normal = clampedNormalModeProbability
+          // reverse = 1 - clampedNormalModeProbability
           return {
             ...prev,
             isWordBuildingMode: true,
-            isWordBuildingReverse: random.real(0, 1) < 0.5,
+            isWordBuildingReverse:
+              random.real(0, 1) >= clampedNormalModeProbability,
             consecutiveCorrect: newConsecutive,
             wordBuildingStreak: 0,
             consecutiveWrong: newConsecutiveWrong,
@@ -256,6 +259,7 @@ export const useWordBuildingMode = (options: WordBuildingModeOptions = {}) => {
     });
   }, [
     baseProbability,
+    clampedNormalModeProbability,
     enableAdaptiveWordLength,
     getAdaptiveWordLength,
     incrementPerCorrect,

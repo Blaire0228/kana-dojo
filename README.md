@@ -138,18 +138,18 @@ npm run check
 
 ### Logo
 
-- [Talor Ash](https://www.instagram.com/talorash/) — creator of the KanaDojo logo.
+- [Brandon Haupt](https://www.instagram.com/talorash/) — creator of the KanaDojo logo.
 
 ### Sponsor
 
-- [Vercel](https://vercel.com/) — KanaDojo is supported by Vercel.
-- [Vercel Open Source Program](https://vercel.com/open-source-program) — part of the broader OSS ecosystem we’re grateful to be included in.
+- [Vercel](https://vercel.com/) — KanaDojo is sponsored by Vercel.
+- [Vercel Open Source Program](https://vercel.com/open-source-program) — part of the broader OSS ecosystem we’re grateful to be part of.
 
 ### Inspiration
 
-- [Duolingo](https://www.duolingo.com/) — learning-game inspiration.
-- [Monkeytype](https://monkeytype.com/) — typing-practice inspiration.
-- [Monkeytype GitHub repository](https://github.com/monkeytypegame/monkeytype) — source of the exported sound effects in `assets/monkeytype-sfx/`.
+- [Duolingo](https://www.duolingo.com/) — main inspiration.
+- [Monkeytype](https://monkeytype.com/) — UI and design inspiration.
+- [Monkeytype GitHub repository](https://github.com/monkeytypegame/monkeytype)
 
 ### Japanese Language Libraries
 
@@ -185,7 +185,7 @@ This project is licensed under the AGPL 3.0 License — see [LICENSE.md](./LICEN
 
 <div align="center">
 
-**Made with ❤️ for Japanese language learners worldwide**
+**Made with ❤️ by the open-source community for Japanese language learners worldwide**
 
 がんばって！ (Ganbatte! — Do your best!)
 
