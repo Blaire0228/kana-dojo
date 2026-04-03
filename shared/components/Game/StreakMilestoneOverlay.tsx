@@ -5,10 +5,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { Flame } from 'lucide-react';
 import { useHasFinePointer } from '@/shared/hooks/generic/useHasFinePointer';
-import { type StreakMilestone } from '@/shared/lib/game/streakMilestones';
 
 interface StreakMilestoneOverlayProps {
-  milestone: StreakMilestone | null;
+  milestone: number | null;
   onDismiss: () => void;
 }
 
