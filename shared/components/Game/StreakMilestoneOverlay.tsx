@@ -3,7 +3,7 @@
 import { useEffect, useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
-import { Star } from 'lucide-react';
+import { Star, Flame } from 'lucide-react';
 import { useHasFinePointer } from '@/shared/hooks/generic/useHasFinePointer';
 import { cn } from '@/shared/lib/utils';
 import { getRandomMilestoneMessage } from '@/shared/lib/game/streakMilestones';
@@ -154,23 +154,24 @@ export default function StreakMilestoneOverlay({
                 'motion-safe:animate-float [--float-distance:-6px]',
               )}
             >
-              <Star className='h-14 w-14' strokeWidth={2.5} />
+              <Flame className='h-14 w-14' strokeWidth={2.5} />
             </motion.button>
 
             <motion.h2
               variants={itemVariants}
-              className='text-4xl font-bold tracking-tighter text-(--main-color) sm:text-5xl'
+              className='text-4xl font-semibold tracking-tighter text-(--main-color) sm:text-5xl'
             >
               {milestone} in a row!
             </motion.h2>
 
+            {/*
             <motion.p
               variants={itemVariants}
               className='max-w-2xl text-xl font-semibold text-(--secondary-color) sm:text-2xl'
             >
               {message}
             </motion.p>
-
+*/}
             <motion.p
               variants={itemVariants}
               className='text-sm text-(--secondary-color)/80'
