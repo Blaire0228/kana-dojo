@@ -74,7 +74,7 @@
   {
     "id": 13,
     "fact": "Japanese police use giant futon-like blankets called 'sasumata' to safely pin suspects against walls, a technique dating back to the Edo period.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -86,7 +86,7 @@
   {
     "id": 15,
     "fact": "The Japanese word 'shoganai' (しょうがない) expresses accepting what cannot be changed - a cultural philosophy of graceful resignation.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -218,7 +218,7 @@
   {
     "id": 37,
     "fact": "Japanese business cards (meishi) are exchanged with both hands and a bow - placing one in your pocket immediately is considered disrespectful.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -302,7 +302,7 @@
   {
     "id": 51,
     "fact": "There's a Japanese practice of 'honne and tatemae' - your true feelings (honne) versus your public facade (tatemae) - both are considered valid.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -314,7 +314,7 @@
   {
     "id": 53,
     "fact": "The Japanese word 'shibui' (渋い) describes a subtle, unobtrusive beauty that grows on you over time - the opposite of flashy.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -338,7 +338,7 @@
   {
     "id": 57,
     "fact": "There's a Japanese word 'tsujigiri' (辻斬り) that historically meant testing a new sword on a random passerby - thankfully outlawed centuries ago.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -422,7 +422,7 @@
   {
     "id": 71,
     "fact": "The concept of 'gambaru' (頑張る) means to persist and give your best - so fundamental that kids learn it before they start school.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -524,7 +524,7 @@
   {
     "id": 88,
     "fact": "Japan has a 'Hotel for the Deceased' where families can spend one more night with loved ones before cremation.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -560,7 +560,7 @@
   {
     "id": 94,
     "fact": "Japan has 'salary men insurance' that pays out if you're transferred to a remote location away from your family.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -602,7 +602,7 @@
   {
     "id": 101,
     "fact": "The Japanese concept 'meibutsu' (名物) refers to famous local products - every region has foods and crafts found nowhere else.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -692,7 +692,7 @@
   {
     "id": 116,
     "fact": "Japan has themed trains where the entire interior is decorated for specific anime, seasonal events, or tourist destinations.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -740,7 +740,7 @@
   {
     "id": 124,
     "fact": "Japan has 'Peko-chan' - a cartoon mascot for Fujiya confectionery since 1950, whose tongue-sticking pose has become an iconic symbol recognized by nearly all Japanese people.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -758,7 +758,7 @@
   {
     "id": 127,
     "fact": "There's a Japanese concept 'on' (恩) - a debt of gratitude so deep it can never truly be repaid, only acknowledged.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -842,7 +842,7 @@
   {
     "id": 141,
     "fact": "The word 'okage-sama de' (おかげさまで) means 'thanks to you' but implies gratitude to unseen forces and luck too.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1022,7 +1022,7 @@
   {
     "id": 171,
     "fact": "There's a Japanese practice 'kashikomarimashita' (かしこまりました) - the ultra-polite way service staff say 'understood.'",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1118,7 +1118,7 @@
   {
     "id": 187,
     "fact": "There's a Japanese practice 'teineisa' (丁寧さ) meaning politeness shown through meticulous attention to detail.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1154,7 +1154,7 @@
   {
     "id": 193,
     "fact": "The word 'kawai-sou' (可哀想) means pitiable but with genuine sympathy - you feel sorry for someone's circumstances.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1298,7 +1298,7 @@
   {
     "id": 217,
     "fact": "Japan has 'omikuji' (おみくじ) fortune slips at shrines; bad fortunes are often tied to a tree or rack to leave them behind.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1562,7 +1562,7 @@
   {
     "id": 261,
     "fact": "Japan’s 'machi-nami hozon' movement preserves historic townscapes, protecting old streets so locals can still live and work there.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1682,7 +1682,7 @@
   {
     "id": 281,
     "fact": "Japan has 'kominka' farmhouses that are renovated into cafes, inns, and galleries while keeping original beams and hearths.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1760,7 +1760,7 @@
   {
     "id": 294,
     "fact": "The concept of 'mottainai' (もったいない) expresses regret over waste and encourages respect for resources.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1814,7 +1814,7 @@
   {
     "id": 303,
     "fact": "'Natsukashii' (懐かしい) describes a warm, nostalgic feeling when recalling the past.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {

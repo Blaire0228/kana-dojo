@@ -56,7 +56,7 @@
     "backgroundColor": "oklch(92.0% 0.025 140.0 / 1)",
     "mainColor": "oklch(55.0% 0.180 140.0 / 1)",
     "secondaryColor": "oklch(70.0% 0.120 80.0 / 1)",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -140,7 +140,7 @@
     "backgroundColor": "oklch(94.0% 0.012 250.0 / 1)",
     "mainColor": "oklch(50.0% 0.145 30.0 / 1)",
     "secondaryColor": "oklch(40.0% 0.110 250.0 / 1)",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -326,7 +326,7 @@
     "backgroundColor": "oklch(24.0% 0.045 80.0 / 1)",
     "mainColor": "oklch(85.0% 0.155 90.0 / 1)",
     "secondaryColor": "oklch(70.0% 0.120 95.0 / 1)",
-    "issued": false,
+    "issued": true,
     "completed": false,
     "completedBy": "pranjalpandey693",
     "completedPR": 12467
@@ -451,7 +451,9 @@
     "mainColor": "oklch(65.0% 0.025 270.0 / 1)",
     "secondaryColor": "oklch(55.0% 0.175 15.0 / 1)",
     "issued": false,
-    "completed": false
+    "completed": false,
+    "completedBy": "MouraoDev22",
+    "completedPR": 12836
   },
   {
     "id": "konbini-light",
@@ -470,7 +472,7 @@
     "backgroundColor": "oklch(20.0% 0.022 35.0 / 1)",
     "mainColor": "oklch(72.0% 0.065 75.0 / 1)",
     "secondaryColor": "oklch(60.0% 0.185 20.0 / 1)",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -612,7 +614,7 @@
     "backgroundColor": "oklch(19.0% 0.048 320.0 / 1)",
     "mainColor": "oklch(72.0% 0.155 330.0 / 1)",
     "secondaryColor": "oklch(80.0% 0.125 60.0 / 1)",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -642,7 +644,7 @@
     "backgroundColor": "oklch(22.0% 0.042 55.0 / 1)",
     "mainColor": "oklch(68.0% 0.125 65.0 / 1)",
     "secondaryColor": "oklch(72.0% 0.155 145.0 / 1)",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -807,7 +809,9 @@
     "mainColor": "oklch(55.0% 0.175 145.0 / 1)",
     "secondaryColor": "oklch(45.0% 0.125 140.0 / 1)",
     "issued": false,
-    "completed": false
+    "completed": false,
+    "completedBy": "quanticsoul4772",
+    "completedPR": 12944
   },
   {
     "id": "starry-tanabata",
@@ -816,7 +820,7 @@
     "backgroundColor": "oklch(15.0% 0.048 275.0 / 1)",
     "mainColor": "oklch(88.0% 0.125 255.0 / 1)",
     "secondaryColor": "oklch(78.0% 0.165 330.0 / 1)",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -859,7 +863,9 @@
     "mainColor": "oklch(60.0% 0.195 25.0 / 1)",
     "secondaryColor": "oklch(65.0% 0.175 215.0 / 1)",
     "issued": false,
-    "completed": false
+    "completed": false,
+    "completedBy": "xyf25",
+    "completedPR": 12800
   },
   {
     "id": "yakuza-tattoo",
@@ -992,7 +998,7 @@
     "backgroundColor": "oklch(20.0% 0.028 285.0 / 1)",
     "mainColor": "oklch(88.0% 0.045 90.0 / 1)",
     "secondaryColor": "oklch(65.0% 0.145 20.0 / 1)",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1218,7 +1224,7 @@
     "backgroundColor": "oklch(97.0% 0.006 240.0 / 1)",
     "mainColor": "oklch(40.0% 0.035 260.0 / 1)",
     "secondaryColor": "oklch(65.0% 0.120 220.0 / 1)",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1302,7 +1308,7 @@
     "backgroundColor": "oklch(19.0% 0.020 70.0 / 1)",
     "mainColor": "oklch(72.0% 0.095 75.0 / 1)",
     "secondaryColor": "oklch(58.0% 0.065 55.0 / 1)",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1312,7 +1318,7 @@
     "backgroundColor": "oklch(17.0% 0.030 245.0 / 1)",
     "mainColor": "oklch(88.0% 0.055 230.0 / 1)",
     "secondaryColor": "oklch(70.0% 0.145 210.0 / 1)",
-    "issued": false,
+    "issued": true,
     "completed": false,
     "completedBy": "sharanrajt",
     "completedPR": 12737
@@ -1438,7 +1444,7 @@
     "backgroundColor": "oklch(96.0% 0.015 210.0 / 1)",
     "mainColor": "oklch(60.0% 0.135 200.0 / 1)",
     "secondaryColor": "oklch(78.0% 0.065 100.0 / 1)",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1500,7 +1506,7 @@
     "backgroundColor": "oklch(96.0% 0.020 25.0 / 1)",
     "mainColor": "oklch(68.0% 0.165 15.0 / 1)",
     "secondaryColor": "oklch(78.0% 0.105 85.0 / 1)",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1590,7 +1596,7 @@
     "backgroundColor": "oklch(20.0% 0.035 35.0 / 1)",
     "mainColor": "oklch(80.0% 0.170 45.0 / 1)",
     "secondaryColor": "oklch(78.0% 0.095 140.0 / 1)",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1633,7 +1639,9 @@
     "mainColor": "oklch(72.0% 0.050 215.0 / 1)",
     "secondaryColor": "oklch(60.0% 0.040 230.0 / 1)",
     "issued": false,
-    "completed": false
+    "completed": false,
+    "completedBy": "BlueFlareKiran",
+    "completedPR": 12884
   },
   {
     "id": "festival-red",
@@ -1726,7 +1734,7 @@
     "backgroundColor": "oklch(96.0% 0.006 90.0 / 1)",
     "mainColor": "oklch(30.0% 0.015 260.0 / 1)",
     "secondaryColor": "oklch(55.0% 0.020 260.0 / 1)",
-    "issued": false,
+    "issued": true,
     "completed": false,
     "completedBy": "JohannesL2",
     "completedPR": 12246
@@ -1760,7 +1768,7 @@
     "backgroundColor": "oklch(94.0% 0.010 210.0 / 1)",
     "mainColor": "oklch(45.0% 0.080 155.0 / 1)",
     "secondaryColor": "oklch(60.0% 0.040 200.0 / 1)",
-    "issued": false,
+    "issued": true,
     "completed": false,
     "completedBy": "pbcodesC",
     "completedPR": 12723
@@ -1942,7 +1950,7 @@
     "backgroundColor": "oklch(16.5% 0.040 250.0 / 1)",
     "mainColor": "oklch(78.0% 0.170 45.0 / 1)",
     "secondaryColor": "oklch(70.0% 0.090 210.0 / 1)",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
