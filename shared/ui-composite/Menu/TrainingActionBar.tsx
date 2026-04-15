@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { KanaGauntlet, useKanaSelection } from '@/features/Kana';
 import { KanjiGauntlet, useKanjiSelection } from '@/features/Kanji';
@@ -7,11 +7,12 @@ import { useVocabSelection, VocabGauntlet } from '@/features/Vocabulary';
 import { useInputPreferences } from '@/features/Preferences';
 import { useClick } from '@/shared/hooks/generic/useAudio';
 import { Play, Zap, Swords } from 'lucide-react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import GameModes from '@/shared/ui-composite/Menu/GameModes';
 
 // Gauntlet components with onCancel prop support
 import { cn } from '@/shared/utils/utils';
+import { useScrollVisibility } from '@/shared/hooks/generic/useScrollVisibility';
 
 const TRAINING_ACTION_CLASSIC_FLOAT_CLASSES =
   'motion-safe:animate-float [--float-distance:-3px] delay-200ms';
@@ -92,15 +93,14 @@ const TrainingActionBar: React.FC<ITopBarProps> = ({
     left: 0,
     width: '100%',
   });
-  const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+  const isSidebarVisible = useScrollVisibility();
   const [isMobileViewport, setIsMobileViewport] = useState(false);
-  const lastScrollY = useRef(0);
 
   const placeholderRef = useRef<HTMLDivElement | null>(null);
 
   // Safe useLayoutEffect for SSR
   const useIsomorphicLayoutEffect =
-    typeof window !== 'undefined' ? useEffect : useEffect;
+    typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
   useIsomorphicLayoutEffect(() => {
     const updateLayout = () => {
@@ -179,41 +179,6 @@ const TrainingActionBar: React.FC<ITopBarProps> = ({
     };
   }, []);
 
-  useEffect(() => {
-    const scrollContainer = document.querySelector(
-      '[data-scroll-restoration-id="container"]',
-    );
-
-    if (!scrollContainer) {
-      console.warn(
-        'Scroll container not found, TrainingActionBar scroll behavior disabled',
-      );
-      return;
-    }
-
-    const handleScroll = () => {
-      const currentScrollY = scrollContainer.scrollTop;
-
-      if (currentScrollY <= 10) {
-        setIsSidebarVisible(true);
-      } else if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
-        setIsSidebarVisible(false);
-      } else if (currentScrollY < lastScrollY.current) {
-        setIsSidebarVisible(true);
-      }
-
-      lastScrollY.current = currentScrollY;
-    };
-
-    scrollContainer.addEventListener('scroll', handleScroll, {
-      passive: true,
-    });
-
-    return () => {
-      scrollContainer.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
   const targetBottom =
     isMobileViewport && !isSidebarVisible ? 0 : layout.bottom;
 
@@ -225,34 +190,35 @@ const TrainingActionBar: React.FC<ITopBarProps> = ({
         className='pointer-events-none h-0 w-full opacity-0'
       />
 
-      <AnimatePresence>
-        {isFilled && (
-          <motion.div
-            initial={{ y: '100%', opacity: 0 }}
-            animate={{ y: 0, opacity: 1, bottom: targetBottom }}
-            exit={{ y: '100%', opacity: 0 }}
-            transition={{
-              duration: 0.3,
-              ease: [0.4, 0, 0.2, 1],
-            }}
-            style={{
-              left:
-                typeof layout.left === 'number'
-                  ? `${layout.left}px`
-                  : layout.left,
-              width:
-                typeof layout.width === 'number'
-                  ? `${layout.width}px`
-                  : layout.width,
-            }}
-            id='main-training-action-bar'
-            className={clsx(
-              'fixed z-40',
-              'bg-(--background-color)',
-              'border-t-2 border-(--border-color)',
-              'px-2 py-3',
-            )}
-          >
+      <motion.div
+        initial={false}
+        animate={{
+          y: isFilled ? 0 : '100%',
+          opacity: isFilled ? 1 : 0,
+          bottom: targetBottom,
+        }}
+        transition={{
+          duration: 0.3,
+          ease: [0.4, 0, 0.2, 1],
+        }}
+        aria-hidden={!isFilled}
+        style={{
+          left:
+            typeof layout.left === 'number' ? `${layout.left}px` : layout.left,
+          width:
+            typeof layout.width === 'number'
+              ? `${layout.width}px`
+              : layout.width,
+        }}
+        id='main-training-action-bar'
+        className={clsx(
+          'fixed z-40',
+          'bg-(--background-color)',
+          'border-t-2 border-(--border-color)',
+          'px-2 py-3',
+          !isFilled && 'pointer-events-none',
+        )}
+      >
             <div
               className={clsx(
                 'flex flex-row items-center justify-center gap-2 md:gap-8',
@@ -348,9 +314,7 @@ const TrainingActionBar: React.FC<ITopBarProps> = ({
                   ),
                 )}
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      </motion.div>
 
       {/* Game Modes Interstitial */}
       <GameModes

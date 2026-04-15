@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState, useMemo, useRef } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import clsx from 'clsx';
 import { useKanjiSelection } from '@/features/Kanji';
 import { useVocabSelection } from '@/features/Vocabulary';
@@ -8,6 +8,7 @@ import { getSelectionLabels } from '@/shared/utils/selectionFormatting';
 import { usePathname } from 'next/navigation';
 import { removeLocaleFromPath } from '@/shared/utils/pathUtils';
 import { useClick } from '@/shared/hooks/generic/useAudio';
+import { useScrollVisibility } from '@/shared/hooks/generic/useScrollVisibility';
 import { CircleCheck, Trash } from 'lucide-react';
 import { ActionButton } from '@/shared/ui/components/ActionButton';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -81,8 +82,7 @@ const SelectionStatusBar = () => {
     left: 0,
     width: '100%',
   });
-  const [isVisible, setIsVisible] = useState(true);
-  const lastScrollY = useRef(0);
+  const isVisible = useScrollVisibility();
 
   useEffect(() => {
     const updateLayout = () => {
@@ -129,41 +129,6 @@ const SelectionStatusBar = () => {
       if (observer) {
         observer.disconnect();
       }
-    };
-  }, []);
-
-  useEffect(() => {
-    const scrollContainer = document.querySelector(
-      '[data-scroll-restoration-id="container"]',
-    );
-
-    if (!scrollContainer) {
-      console.warn(
-        'Scroll container not found, SelectionStatusBar scroll behavior disabled',
-      );
-      return;
-    }
-
-    const handleScroll = () => {
-      const currentScrollY = scrollContainer.scrollTop;
-
-      if (currentScrollY <= 10) {
-        setIsVisible(true);
-      } else if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
-        setIsVisible(false);
-      } else if (currentScrollY < lastScrollY.current) {
-        setIsVisible(true);
-      }
-
-      lastScrollY.current = currentScrollY;
-    };
-
-    scrollContainer.addEventListener('scroll', handleScroll, {
-      passive: true,
-    });
-
-    return () => {
-      scrollContainer.removeEventListener('scroll', handleScroll);
     };
   }, []);
 

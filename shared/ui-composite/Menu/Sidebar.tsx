@@ -18,6 +18,7 @@ import {
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useClick } from '@/shared/hooks/generic/useAudio';
+import { useScrollVisibility } from '@/shared/hooks/generic/useScrollVisibility';
 import { ReactNode, useEffect, useRef, memo, useState } from 'react';
 import { useInputPreferences } from '@/features/Preferences';
 import { removeLocaleFromPath } from '@/shared/utils/pathUtils';
@@ -361,12 +362,11 @@ const Sidebar = () => {
   const { playClick } = useClick();
 
   const escButtonRef = useRef<HTMLButtonElement | null>(null);
-  const lastScrollY = useRef(0);
 
   // Lazy load experiments
   const [loadedExperiments, setLoadedExperiments] = useState<Experiment[]>([]);
-  const [isVisible, setIsVisible] = useState(true);
   const [isMobileViewport, setIsMobileViewport] = useState(false);
+  const isVisible = useScrollVisibility();
   const [isDesktopSidebarCollapsed, setIsDesktopSidebarCollapsed] = useState(
     () => {
       if (typeof window === 'undefined') return false;
@@ -530,46 +530,6 @@ const Sidebar = () => {
 
     return () => {
       mediaQuery.removeEventListener('change', updateViewport);
-    };
-  }, []);
-
-  useEffect(() => {
-    const scrollContainer = document.querySelector(
-      '[data-scroll-restoration-id="container"]',
-    );
-
-    if (!scrollContainer) {
-      console.warn(
-        'Scroll container not found, Sidebar scroll behavior disabled',
-      );
-      return;
-    }
-
-    const handleScroll = () => {
-      const currentScrollY = scrollContainer.scrollTop;
-
-      // Always show when at top of page
-      if (currentScrollY <= 10) {
-        setIsVisible(true);
-      }
-      // Hide when scrolling down past threshold
-      else if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
-        setIsVisible(false);
-      }
-      // Show when scrolling up
-      else if (currentScrollY < lastScrollY.current) {
-        setIsVisible(true);
-      }
-
-      lastScrollY.current = currentScrollY;
-    };
-
-    scrollContainer.addEventListener('scroll', handleScroll, {
-      passive: true,
-    });
-
-    return () => {
-      scrollContainer.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
