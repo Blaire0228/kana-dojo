@@ -486,10 +486,11 @@
   "secondaryColor": "oklch(65.0% 0.165 40.0 / 1)"
   },
   {
-   "id": 'gingko-avenue',
-   "backgroundColor": 'oklch(23.0% 0.020 75.0 / 1)',
-   "mainColor": 'oklch(82.0% 0.155 95.0 / 1)',
-   "secondaryColor": 'oklch(62.0% 0.085 55.0 / 1)'
+  {
+    "id": "gingko-avenue",
+    "backgroundColor": "oklch(23.0% 0.020 75.0 / 1)",
+    "mainColor": "oklch(82.0% 0.155 95.0 / 1)",
+    "secondaryColor": "oklch(62.0% 0.085 55.0 / 1)"
   },
     "id": "maple-lacquer",
     "backgroundColor": "oklch(17.0% 0.035 20.0 / 1)",
@@ -527,10 +528,10 @@
     "secondaryColor": "oklch(70.0% 0.220 310.0 / 1)"
   },
   {
-  id: 'pagoda-twilight',
-  backgroundColor: 'oklch(20.0% 0.045 290.0 / 1)',
-  mainColor: 'oklch(68.0% 0.155 315.0 / 1)',
-  secondaryColor: 'oklch(75.0% 0.125 280.0 / 1)'
+    "id": "pagoda-twilight",
+    "backgroundColor": "oklch(20.0% 0.045 290.0 / 1)",
+    "mainColor": "oklch(68.0% 0.155 315.0 / 1)",
+    "secondaryColor": "oklch(75.0% 0.125 280.0 / 1)"
   },
   {
     "id": "umami-miso",
