@@ -24,6 +24,7 @@ import {
   type VocabQuizType,
 } from '@/features/Vocabulary/components/Game/vocabFormatLock';
 import useSetProgressStore from '@/features/Progress/store/useSetProgressStore';
+import { shouldSuppressContinueKeyboardShortcut } from '@/shared/utils/game/continueShortcutGuard';
 
 // Get the global adaptive selector for weighted character selection
 const adaptiveSelector = getGlobalAdaptiveSelector();
@@ -168,6 +169,15 @@ const VocabInputGame = ({
     const handleKeyDown = (event: KeyboardEvent) => {
       const isEnter = event.key === 'Enter';
       const isSpace = event.code === 'Space' || event.key === ' ';
+      const isContinueShortcut = isEnter || isSpace;
+
+      if (
+        isContinueShortcut &&
+        shouldSuppressContinueKeyboardShortcut()
+      ) {
+        event.preventDefault();
+        return;
+      }
 
       if (isEnter) {
         if (justAnsweredRef.current) {

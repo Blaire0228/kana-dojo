@@ -19,6 +19,7 @@ import useClassicSessionStore from '@/shared/store/useClassicSessionStore';
 import { useThemePreferences } from '@/features/Preferences';
 import { cn } from '@/shared/utils/utils';
 import useSetProgressStore from '@/features/Progress/store/useSetProgressStore';
+import { shouldSuppressContinueKeyboardShortcut } from '@/shared/utils/game/continueShortcutGuard';
 
 // Get the global adaptive selector for weighted character selection
 const adaptiveSelector = getGlobalAdaptiveSelector();
@@ -159,6 +160,15 @@ const KanjiInputGame = ({
     const handleKeyDown = (event: KeyboardEvent) => {
       const isEnter = event.key === 'Enter';
       const isSpace = event.code === 'Space' || event.key === ' ';
+      const isContinueShortcut = isEnter || isSpace;
+
+      if (
+        isContinueShortcut &&
+        shouldSuppressContinueKeyboardShortcut()
+      ) {
+        event.preventDefault();
+        return;
+      }
 
       if (isEnter) {
         // Guard against Enter key repeat immediately after correct answer
