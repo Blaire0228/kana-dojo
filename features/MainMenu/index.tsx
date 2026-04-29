@@ -1,9 +1,9 @@
 'use client';
 import { Fragment, lazy, Suspense, useState, useEffect } from 'react';
 import { Link } from '@/core/i18n/routing';
-import Banner from './Banner';
-import Info from '@/shared/components/Menu/Info';
-import NightlyBanner from '@/shared/components/Modals/NightlyBanner';
+import KanaDojoBanner from './KanaDojoBanner';
+import Info from '@/shared/ui-composite/Menu/Info';
+import NightlyBanner from '@/shared/ui-composite/Modals/NightlyBanner';
 import {
   ScrollText,
   FileLock2,
@@ -13,6 +13,8 @@ import {
   Heart,
   Sparkle,
   FileDiff,
+  CircleHelp,
+  Bug,
 } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord, faGithub } from '@fortawesome/free-brands-svg-icons';
@@ -21,10 +23,8 @@ import { useClick } from '@/shared/hooks/generic/useAudio';
 import { useThemePreferences } from '@/features/Preferences';
 import useDecorationsStore from '@/shared/store/useDecorationsStore';
 import { useMediaQuery } from 'react-responsive';
-import { buttonBorderStyles } from '@/shared/lib/styles';
-import { Button } from '@/shared/components/ui/button';
 
-const Decorations = lazy(() => import('./Decorations'));
+const Decorations = lazy(() => import('@/shared/ui-composite/Decorations/Decorations'));
 
 const MainMenu = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -39,7 +39,7 @@ const MainMenu = () => {
       'border-b-8 border-(--secondary-color-accent) group-hover:border-(--main-color-accent)',
       'transition-all duration-200',
       'active:border-b-0 active:translate-y-[6px] active:mb-[6px]',
-      'animate-float',
+      'motion-safe:animate-float',
       delay,
       `[--float-distance:${floatDistance}]`,
     );
@@ -101,6 +101,7 @@ const MainMenu = () => {
     { name: 'security', href: '/security', icon: FileLock2 },
     { name: 'patch notes', href: '/patch-notes', icon: FileDiff },
     { name: 'credits', href: '/credits', icon: Sparkle },
+    { name: 'about', href: '/about', icon: CircleHelp },
   ];
 
   const mobileLabelInset = 'pl-[max(30%,calc(50%-5.5rem))]';
@@ -120,14 +121,17 @@ const MainMenu = () => {
               interactive={true}
             />
           )}
-          <Button
-            variant='secondary'
-            size='icon'
+          <button
             className={clsx(
-              'fixed top-4 right-8 z-50',
+              'fixed top-4 right-4 z-50 hover:cursor-pointer',
+              'inline-flex h-12 w-12 items-center justify-center rounded-2xl',
+              'bg-(--main-color) text-(--background-color)',
+              'border-b-8 border-(--main-color-accent)',
+              'transition-all duration-200',
+              'active:mb-[6px] active:translate-y-[6px] active:border-b-0',
+              'motion-safe:animate-float [--float-distance:-4px]',
+              '[animation-delay:400ms]',
               !isGlassMode && 'opacity-90',
-              buttonBorderStyles,
-              'transition-transform duration-250 active:scale-95',
             )}
             onClick={() => {
               playClick();
@@ -135,7 +139,7 @@ const MainMenu = () => {
             }}
           >
             <Sparkle />
-          </Button>
+          </button>
 
           {/* <Button
             variant='secondary'
@@ -165,41 +169,46 @@ const MainMenu = () => {
         )}
       >
         <div className='flex w-full flex-row items-center justify-between gap-2 px-1'>
-          <Banner />
+          <KanaDojoBanner />
           <div className='flex w-1/2 flex-row justify-end gap-2 md:w-1/3'>
-            {theme === 'dark' ? (
-              <Moon
-                size={32}
-                onClick={() => {
-                  playClick();
-                  setTheme('light');
-                }}
-                className={clsx(
-                  'duration-250 hover:cursor-pointer',
-                  'active:scale-100 active:duration-225',
-                  'text-(--secondary-color) hover:text-(--main-color)',
-                )}
-              />
-            ) : (
-              <Sun
-                size={32}
-                onClick={() => {
-                  playClick();
-                  setTheme('dark');
-                }}
-                className={clsx(
-                  'duration-250 hover:cursor-pointer',
-                  'active:scale-100 active:duration-225',
-                  'text-(--secondary-color) hover:text-(--main-color)',
-                )}
-              />
-            )}
+            <button
+              type='button'
+              onClick={() => {
+                playClick();
+                window.open('https://tally.so/r/2E4rB9', '_blank', 'noopener');
+              }}
+              className={clsx(
+                'inline-flex sm:hidden',
+                'duration-250 hover:cursor-pointer hover:scale-105',
+                'active:scale-100 active:duration-225',
+                'fill-current text-(--secondary-color) hover:text-(--main-color)',
+              )}
+              aria-label='Report a bug'
+            >
+              <Bug size={32} fill='currentColor' />
+            </button>
+            <button
+              type='button'
+              onClick={() => {
+                playClick();
+                setTheme(theme === 'dark' ? 'light' : 'dark');
+              }}
+              className={clsx(
+                'hidden sm:inline-flex',
+                'duration-250 hover:cursor-pointer',
+                'active:scale-100 active:duration-225',
+                'text-(--secondary-color) hover:text-(--main-color)',
+              )}
+              aria-label='Toggle theme'
+            >
+              {theme === 'dark' ? <Moon size={32} /> : <Sun size={32} />}
+            </button>
 
             <FontAwesomeIcon
               icon={faDiscord}
               size='2x'
               className={clsx(
-                'duration-250 hover:cursor-pointer',
+                'duration-250 hover:cursor-pointer hover:scale-105',
                 'active:scale-100 active:duration-225',
                 'md:hidden',
                 'text-(--secondary-color) hover:text-(--main-color)',
@@ -213,7 +222,7 @@ const MainMenu = () => {
               icon={faGithub}
               size='2x'
               className={clsx(
-                'duration-250 hover:cursor-pointer',
+                'duration-250 hover:cursor-pointer hover:scale-105',
                 'active:scale-100 active:duration-225',
                 'text-(--secondary-color) hover:text-(--main-color)',
               )}
@@ -222,10 +231,26 @@ const MainMenu = () => {
                 window.open('https://github.com/lingdojo/kana-dojo', '_blank');
               }}
             />
+            <button
+              type='button'
+              onClick={() => {
+                playClick();
+                window.open('https://tally.so/r/2E4rB9', '_blank', 'noopener');
+              }}
+              className={clsx(
+                'hidden sm:inline-flex',
+                'duration-250 hover:cursor-pointer hover:scale-105',
+                'active:scale-100 active:duration-225',
+                ' text-(--secondary-color) hover:text-(--main-color)',
+              )}
+              aria-label='Report a bug'
+            >
+              <Bug size={32}  />
+            </button>
             <Heart
               size={32}
               className={clsx(
-                'duration-250 hover:cursor-pointer',
+                'duration-250 hover:cursor-pointer hover:scale-105',
                 'active:scale-100 active:duration-225',
                 'animate-bounce fill-current text-red-500',
               )}
@@ -322,7 +347,7 @@ const MainMenu = () => {
               key={i}
               className={clsx(
                 'flex flex-row items-center gap-1 text-(--secondary-color) hover:cursor-pointer hover:text-(--main-color)',
-                link.name === 'credits' && 'hidden lg:flex',
+                (link.name === 'credits' || link.name === 'about') && 'hidden sm:flex',
               )}
               onClick={() => playClick()}
             >
@@ -353,3 +378,4 @@ const MainMenu = () => {
 };
 
 export default MainMenu;
+

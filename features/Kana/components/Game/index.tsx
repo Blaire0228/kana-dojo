@@ -1,17 +1,22 @@
 'use client';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
-import Return from '@/shared/components/Game/ReturnFromGame';
-import Pick from './Pick';
+import Return from '@/shared/ui-composite/Game/ReturnFromGame';
+import MCQ from './MCQ';
 import Input from './Input';
+import TilesMode from './TilesMode';
 import useKanaStore from '@/features/Kana/store/useKanaStore';
 import { useStatsStore } from '@/features/Progress';
 import { useShallow } from 'zustand/react/shallow';
-import Stats from '@/shared/components/Game/Stats';
-import ClassicSessionSummary from '@/shared/components/Game/ClassicSessionSummary';
+import Stats from '@/shared/ui-composite/Game/Stats';
+import SessionSummaryScreen from '@/shared/ui-composite/Game/SessionSummaryScreen';
+import StreakMilestoneOverlay from '@/shared/ui-composite/Game/StreakMilestoneOverlay';
 import { useRouter } from '@/core/i18n/routing';
-import { finalizeSession, startSession } from '@/shared/lib/sessionHistory';
+import { finalizeSession, startSession } from '@/shared/utils/sessionHistory';
 import useClassicSessionStore from '@/shared/store/useClassicSessionStore';
+import {
+  shouldShowStreakMilestoneOverlay,
+} from '@/shared/utils/game/streakMilestones';
 
 const Game = () => {
   const {
@@ -44,6 +49,7 @@ const Game = () => {
   const gameMode = useKanaStore(state => state.selectedGameModeKana);
   const router = useRouter();
   const [view, setView] = useState<'playing' | 'summary'>('playing');
+  const [activeMilestone, setActiveMilestone] = useState<number | null>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [sessionNonce, setSessionNonce] = useState(0);
   const setActiveSessionId = useClassicSessionStore(
@@ -51,7 +57,15 @@ const Game = () => {
   );
 
   useEffect(() => {
+    if (view !== 'playing') return;
+    if (shouldShowStreakMilestoneOverlay(currentStreak)) {
+      setActiveMilestone(currentStreak);
+    }
+  }, [currentStreak, view]);
+
+  useEffect(() => {
     resetStats();
+    setActiveMilestone(null);
     // Track dojo and mode usage for achievements (Requirements 8.1-8.3)
     recordDojoUsed('kana');
     recordModeUsed(gameMode.toLowerCase());
@@ -104,21 +118,29 @@ const Game = () => {
       <div
         key={sessionNonce}
         className={clsx(
-          'flex min-h-[100dvh] max-w-[100dvw] flex-col items-center gap-6 px-4 md:gap-10',
+          'flex min-h-[100dvh] max-w-[100dvw] flex-col items-center gap-8 px-2 md:px-0 md:gap-12',
         )}
       >
         {showStats && <Stats />}
         <Return isHidden={showStats} gameMode={gameMode} onQuit={handleQuit} />
         {gameMode.toLowerCase() === 'pick' ? (
-          <Pick isHidden={showStats || view !== 'playing'} />
+          <TilesMode isHidden={showStats || view !== 'playing'} />
+        ) : gameMode.toLowerCase() === 'mcq' ? (
+          <MCQ isHidden={showStats || view !== 'playing'} />
+        ) : gameMode.toLowerCase() === 'tiles' ? (
+          <TilesMode isHidden={showStats || view !== 'playing'} />
         ) : gameMode.toLowerCase() === 'type' ? (
           <Input isHidden={showStats || view !== 'playing'} />
         ) : gameMode.toLowerCase() === 'anti-type' ? (
           <Input isHidden={showStats || view !== 'playing'} isReverse={true} />
         ) : null}
       </div>
+      <StreakMilestoneOverlay
+        milestone={activeMilestone}
+        onDismiss={() => setActiveMilestone(null)}
+      />
       {view === 'summary' && (
-        <ClassicSessionSummary
+        <SessionSummaryScreen
           correct={numCorrectAnswers}
           wrong={numWrongAnswers}
           bestStreak={currentStreak}
@@ -134,3 +156,4 @@ const Game = () => {
 };
 
 export default Game;
+

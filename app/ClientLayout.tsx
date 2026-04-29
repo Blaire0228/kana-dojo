@@ -6,12 +6,13 @@ import { useCrazyMode } from '@/features/CrazyMode';
 import { useShallow } from 'zustand/react/shallow';
 import { usePathname } from 'next/navigation';
 import { ScrollRestoration } from 'next-scroll-restoration';
-import WelcomeModal from '@/shared/components/Modals/WelcomeModal';
+import WelcomeModal from '@/shared/ui-composite/Modals/WelcomeModal';
 import { DonationModal } from '@/features/Preferences';
 import useOnboardingStore from '@/shared/store/useOnboardingStore';
 import {
   AchievementNotificationContainer,
   AchievementIntegration,
+  AchievementPromptsContainer,
 } from '@/features/Achievements/components';
 import {
   applyTheme,
@@ -19,13 +20,13 @@ import {
   getThemeDefaultWallpaperId,
 } from '@/features/Preferences/data/themes/themes';
 import { getWallpaperById } from '@/features/Preferences/data/wallpapers/wallpapers';
-import BackToTop from '@/shared/components/navigation/BackToTop';
-import MobileBottomBar from '@/shared/components/layout/BottomBar';
+import BackToTop from '@/shared/ui-composite/navigation/BackToTop';
+import MobileBottomBar from '@/shared/ui-composite/layout/BottomBar';
 import { useVisitTracker } from '@/features/Progress/hooks/useVisitTracker';
-import { getGlobalAdaptiveSelector } from '@/shared/lib/adaptiveSelection';
-import GlobalAudioController from '@/shared/components/layout/GlobalAudioController';
+import { getGlobalAdaptiveSelector } from '@/shared/utils/adaptiveSelection';
+import GlobalAudioController from '@/shared/ui-composite/layout/GlobalAudioController';
 import { useClick } from '@/shared/hooks/generic/useAudio';
-import ServiceWorkerRegistration from '@/shared/components/ServiceWorkerRegistration';
+import ServiceWorkerRegistration from '@/shared/ui-composite/ServiceWorkerRegistration';
 import CursorTrailRenderer from '@/features/Preferences/components/renderers/CursorTrailRenderer';
 import ClickEffectRenderer from '@/features/Preferences/components/renderers/ClickEffectRenderer';
 
@@ -75,6 +76,8 @@ export default function ClientLayout({
   // Deployment trigger #3
   // Deployment trigger #4 - keep this harmless no-op comment
   // Redeploy trigger - redundant whitespaceless comment
+  // Redeploy trigger - April 24, 2026
+
   // Redeploy trigger - second redundant comment to force redeploy (no-op)
   // Redeploy trigger - third redundant comment to test Vercel Edge outage (March 2, 2026)
   const { theme, font } = usePreferencesStore(
@@ -112,7 +115,8 @@ export default function ClientLayout({
       process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production';
     const isTargetRoute = /\/(kana|kanji|vocabulary)(\/|$)/.test(pathname);
     const isPreferencesRoute = /\/preferences(\/|$)/.test(pathname);
-    const isBaseRoute = pathname === '/' || pathname === '/en' || pathname === '/ja';
+    const isBaseRoute =
+      pathname === '/' || pathname === '/en' || pathname === '/ja';
     const donationLastPathKey = 'donation-modal-last-pathname';
     const donationCycleCountKey = 'donation-modal-cycle-count';
     const previousPathname =
@@ -218,10 +222,36 @@ export default function ClientLayout({
   const { playClick } = useClick();
   useEffect(() => {
     const IGNORED_KEYS = new Set([
-      'Shift', 'Control', 'Alt', 'Meta', 'Tab', 'Escape', 'Enter',
-      'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight',
-      'Backspace', 'Delete', 'Home', 'End', 'PageUp', 'PageDown', 'CapsLock',
-      'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12',
+      'Shift',
+      'Control',
+      'Alt',
+      'Meta',
+      'Tab',
+      'Escape',
+      'Enter',
+      'ArrowUp',
+      'ArrowDown',
+      'ArrowLeft',
+      'ArrowRight',
+      'Backspace',
+      'Delete',
+      'Home',
+      'End',
+      'PageUp',
+      'PageDown',
+      'CapsLock',
+      'F1',
+      'F2',
+      'F3',
+      'F4',
+      'F5',
+      'F6',
+      'F7',
+      'F8',
+      'F9',
+      'F10',
+      'F11',
+      'F12',
     ]);
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -229,7 +259,12 @@ export default function ClientLayout({
       const el = document.activeElement;
       if (!el) return;
       const tag = el.tagName;
-      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (el as HTMLElement).isContentEditable) {
+      if (
+        tag === 'INPUT' ||
+        tag === 'TEXTAREA' ||
+        tag === 'SELECT' ||
+        (el as HTMLElement).isContentEditable
+      ) {
         playClick();
       }
     };
@@ -290,9 +325,12 @@ export default function ClientLayout({
         }}
       />
       <AchievementNotificationContainer />
+      {/* hamza */}
+      <AchievementPromptsContainer />
       <AchievementIntegration />
       <BackToTop />
       <MobileBottomBar />
     </div>
   );
 }
+

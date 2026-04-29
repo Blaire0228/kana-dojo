@@ -1,17 +1,22 @@
 'use client';
 import { useEffect, useState } from 'react';
-import Return from '@/shared/components/Game/ReturnFromGame';
+import Return from '@/shared/ui-composite/Game/ReturnFromGame';
 import Input from './Input';
-import WordBuildingGame from './WordBuildingGame';
+import MCQ from './MCQ';
+import TilesMode from './TilesMode';
 
 import useVocabStore from '@/features/Vocabulary/store/useVocabStore';
 import { useStatsStore } from '@/features/Progress';
 import { useShallow } from 'zustand/react/shallow';
-import Stats from '@/shared/components/Game/Stats';
-import ClassicSessionSummary from '@/shared/components/Game/ClassicSessionSummary';
+import Stats from '@/shared/ui-composite/Game/Stats';
+import SessionSummaryScreen from '@/shared/ui-composite/Game/SessionSummaryScreen';
+import StreakMilestoneOverlay from '@/shared/ui-composite/Game/StreakMilestoneOverlay';
 import { useRouter } from '@/core/i18n/routing';
-import { finalizeSession, startSession } from '@/shared/lib/sessionHistory';
+import { finalizeSession, startSession } from '@/shared/utils/sessionHistory';
 import useClassicSessionStore from '@/shared/store/useClassicSessionStore';
+import {
+  shouldShowStreakMilestoneOverlay,
+} from '@/shared/utils/game/streakMilestones';
 
 const Game = () => {
   const {
@@ -46,6 +51,7 @@ const Game = () => {
   const selectedVocabObjs = useVocabStore(state => state.selectedVocabObjs);
   const router = useRouter();
   const [view, setView] = useState<'playing' | 'summary'>('playing');
+  const [activeMilestone, setActiveMilestone] = useState<number | null>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [sessionNonce, setSessionNonce] = useState(0);
   const setActiveSessionId = useClassicSessionStore(
@@ -53,7 +59,15 @@ const Game = () => {
   );
 
   useEffect(() => {
+    if (view !== 'playing') return;
+    if (shouldShowStreakMilestoneOverlay(currentStreak)) {
+      setActiveMilestone(currentStreak);
+    }
+  }, [currentStreak, view]);
+
+  useEffect(() => {
     resetStats();
+    setActiveMilestone(null);
     // Track dojo and mode usage for achievements (Requirements 8.1-8.3)
     recordDojoUsed('vocabulary');
     recordModeUsed(gameMode.toLowerCase());
@@ -105,13 +119,24 @@ const Game = () => {
     <>
       <div
         key={sessionNonce}
-        className='flex min-h-[100dvh] max-w-[100dvw] flex-col items-center gap-4 px-4 md:gap-6'
+        className='flex min-h-[100dvh] max-w-[100dvw] flex-col items-center gap-8 px-2 md:px-0 md:gap-12'
       >
         {showStats && <Stats />}
         <Return isHidden={showStats} gameMode={gameMode} onQuit={handleQuit} />
         {gameMode.toLowerCase() === 'pick' ? (
-          <WordBuildingGame
-            key={`vocab-wordbuilding-${sessionNonce}`}
+          <TilesMode
+            key={`vocab-tiles-${sessionNonce}`}
+            selectedWordObjs={selectedVocabObjs}
+            isHidden={showStats || view !== 'playing'}
+          />
+        ) : gameMode.toLowerCase() === 'mcq' ? (
+          <MCQ
+            selectedWordObjs={selectedVocabObjs}
+            isHidden={showStats || view !== 'playing'}
+          />
+        ) : gameMode.toLowerCase() === 'tiles' ? (
+          <TilesMode
+            key={`vocab-tiles-${sessionNonce}`}
             selectedWordObjs={selectedVocabObjs}
             isHidden={showStats || view !== 'playing'}
           />
@@ -128,8 +153,12 @@ const Game = () => {
           />
         ) : null}
       </div>
+      <StreakMilestoneOverlay
+        milestone={activeMilestone}
+        onDismiss={() => setActiveMilestone(null)}
+      />
       {view === 'summary' && (
-        <ClassicSessionSummary
+        <SessionSummaryScreen
           correct={numCorrectAnswers}
           wrong={numWrongAnswers}
           bestStreak={currentStreak}
@@ -145,3 +174,4 @@ const Game = () => {
 };
 
 export default Game;
+
